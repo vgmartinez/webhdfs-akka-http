@@ -10,15 +10,23 @@ import spray.json._
 
 trait AuthRoute extends JsonMappings with SecurityDirectives {
   val authRoute = pathPrefix("auth") {
-    (path("signIn") & post) {
-      entity(as[LoginPassword]) { login =>
-        complete (signIn(login.login, login.password).map(_.toJson))
-      }
-    }~
-      (path("signUp") & post) {
-        entity(as[UserEntity]) { user =>
-          complete (signUp(user).map(_.toJson))
+    pathPrefix("signIn") {
+      pathEndOrSingleSlash {
+        post {
+          entity(as[LoginPassword]) { login =>
+            complete(signIn(login.login, login.password).map(_.toJson))
+          }
         }
       }
+    }~
+    pathPrefix("signUp") {
+      pathEndOrSingleSlash {
+        post {
+          entity(as[UserEntity]) { user =>
+            complete(signUp(user).map(_.toJson))
+          }
+        }
+      }
+    }
   }
 }
