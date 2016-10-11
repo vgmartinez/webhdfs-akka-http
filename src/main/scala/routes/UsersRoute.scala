@@ -3,11 +3,11 @@ package routes
 import scala.concurrent.ExecutionContext.Implicits.global
 import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport._
 import akka.http.scaladsl.model.StatusCodes
-import mappings.JsonMappings
-import models.{UserEntityUpdate}
 import akka.http.scaladsl.server.Directives._
-import services.users.UsersService._
 import spray.json._
+import services.users.UsersService._
+import mappings.JsonMappings
+import models.UserEntityUpdate
 
 
 trait UsersRoute extends JsonMappings with SecurityDirectives {

@@ -14,7 +14,6 @@ trait Config {
   val databaseUrl = databaseConfig.getString("url")
   val databaseUser = databaseConfig.getString("user")
   val databasePassword = databaseConfig.getString("password")
-  val databaseNumThreads = databaseConfig.getString("numThreads")
 
   val hdfsHost = hdfsConfig.getString("default_host")
   val hdfsPort = hdfsConfig.getString("default_port")

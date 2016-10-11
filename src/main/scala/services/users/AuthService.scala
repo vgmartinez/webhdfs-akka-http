@@ -1,11 +1,11 @@
 package services.users
 
 import models.{TokenEntity, UserEntity}
-import services.Base
 import slick.driver.PostgresDriver.api._
-import UsersService._
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import services.Base
+import UsersService._
 
 object AuthService extends Base {
 

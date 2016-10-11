@@ -1,12 +1,11 @@
 package services
 
 import models.definitions.{TokenEntityTable, UsersEntityTable}
-import slick.dbio.{Effect, NoStream}
+import slick.dbio.NoStream
 import slick.lifted.TableQuery
-import slick.profile.{FixedSqlAction, FixedSqlStreamingAction, SqlAction}
-import utils.DatabaseConfig
-
+import slick.profile.{FixedSqlStreamingAction, SqlAction}
 import scala.concurrent.Future
+import utils.DatabaseConfig
 
 trait Base extends DatabaseConfig {
   val usersTable = TableQuery[UsersEntityTable]

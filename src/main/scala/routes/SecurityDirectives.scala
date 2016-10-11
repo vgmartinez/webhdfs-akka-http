@@ -5,9 +5,6 @@ import akka.http.scaladsl.server.directives.{BasicDirectives, FutureDirectives, 
 import models.UserEntity
 import services.users.AuthService
 
-/**
-  * Created by victorgarcia on 10/10/16.
-  */
 trait SecurityDirectives {
   import BasicDirectives._
   import HeaderDirectives._

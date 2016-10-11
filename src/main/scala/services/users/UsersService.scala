@@ -1,10 +1,10 @@
 package services.users
 
-import models.{UserEntity, UserEntityUpdate, UserId}
-import services.Base
 import slick.driver.PostgresDriver.api._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import models.{UserEntity, UserEntityUpdate, UserId}
+import services.Base
 
 object UsersService extends Base {
   def findAll: Future[Seq[UserEntity]] = usersTable.result

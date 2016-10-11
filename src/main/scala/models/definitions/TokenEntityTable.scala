@@ -4,9 +4,6 @@ import models.TokenEntity
 import services.Base
 import slick.driver.PostgresDriver.api._
 
-/**
-  * Created by victorgarcia on 10/10/16.
-  */
 class TokenEntityTable (tag: Tag) extends Table[TokenEntity](tag, "tokens") with Base {
   def id = column[Option[Long]]("id", O.PrimaryKey, O.AutoInc)
   def userId = column[Option[Long]]("user_id")
