@@ -6,8 +6,10 @@ import java.text.MessageFormat
 
 import com.typesafe.scalalogging._
 import models.UserEntity
-import org.apache.commons.io.IOUtils
-
+import org.apache.hadoop.conf.Configuration
+import org.apache.hadoop.fs.Path
+import org.apache.hadoop.hdfs.web.WebHdfsFileSystem
+import org.apache.hadoop.fs.FileSystem
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import services.Base
@@ -19,39 +21,31 @@ object HdfsService extends Base {
 
   def listDirectory(path: String, user: UserEntity): Future[String] = {
     val userName = user.username
-    val url = new URL(new URL(httpfsUrl), MessageFormat.format("/webhdfs/v1/{0}?user.name={1}&op=LISTSTATUS", path, userName))
-    print(path)
+    val url = new URL(new URL(httpfsUrl), MessageFormat.format("/webhdfs/v1/{0}?user.name=hadoop&op=LISTSTATUS", path))
     val conn = url.openConnection()
-    val response: Future[String] = result(conn)
-    response
+    result(conn)
   }
 
   def homeDirectory(user: UserEntity): Future[String] = {
     val userName = user.username
     val url = new URL(new URL(httpfsUrl), "/webhdfs/v1/?user.name=hadoop&op=GETHOMEDIRECTORY")
-
     val conn = url.openConnection()
-    val response: Future[String] = result(conn)
-    response
+    result(conn)
   }
 
   def openFile(path: String, user: UserEntity): Future[String] = {
     val userName = user.username
     val url = new URL(new URL(httpfsUrl), MessageFormat.format("/webhdfs/v1/{0}?user.name={1}&op=OPEN", path, userName))
-    print(path)
     val conn = url.openConnection()
     conn.setRequestProperty("Content-Type", "application/octet-stream")
-    val response: Future[String] = result(conn)
-    response
+    result(conn)
   }
 
   def fileStatus(path: String, user: UserEntity): Future[String] = {
     val userName = user.username
     val url = new URL(new URL(httpfsUrl), MessageFormat.format("/webhdfs/v1/{0}?user.name={1}&op=GETFILESTATUS", path, userName))
-
     val conn = url.openConnection()
-    val response: Future[String] = result(conn)
-    response
+    result(conn)
   }
 
   def createFile(path: String, user: UserEntity): String = {
@@ -59,7 +53,6 @@ object HdfsService extends Base {
     val url = new URL(new URL(httpfsUrl), MessageFormat.format("/webhdfs/v1/{0}?user.name={1}&op=CREATE", path, userName))
     var response: String = null
     var redirectUrl = ""
-
     val conn = url.openConnection().asInstanceOf[HttpURLConnection]
 
     conn.setRequestMethod("PUT")
@@ -104,17 +97,16 @@ object HdfsService extends Base {
   def result(conn: URLConnection): Future[String] = {
     val response: Future[String] = Future {
       val is: InputStream = conn.getInputStream
-      IOUtils.toString(is, "UTF-8")
+      scala.io.Source.fromInputStream(is).mkString
     }
     response.onFailure {
       case e => e.printStackTrace()
     }
-    response
+    response.mapTo[String]
   }
 
   def resultSync(conn: URLConnection): String = {
     val is: InputStream = conn.getInputStream
-    IOUtils.toString(is, "UTF-8")
-
+    scala.io.Source.fromInputStream(is).mkString
   }
 }

@@ -21,15 +21,15 @@ libraryDependencies ++= {
     "com.typesafe.akka" %% "akka-http-testkit-experimental"       % akkaStreamVersion,
     "com.typesafe.slick"%% "slick"                                % slickVersion,
     "com.typesafe.play" %% "play-slick-evolutions"                % "2.0.2",
-    "org.apache.hadoop"  % "hadoop-auth"                           % "2.7.3",
-    "commons-io" % "commons-io"                                    % "2.5",
+    "org.apache.hadoop"  % "hadoop-client"                         % "2.7.3",
     "com.typesafe.scala-logging" % "scala-logging_2.11"            % "3.5.0",
     "org.slf4j"          %  "slf4j-nop"                            % "1.6.4",
     "org.postgresql"     %  "postgresql"                           % "9.4-1201-jdbc41",
     "org.flywaydb"       %  "flyway-core"                          % "3.2.1",
     "com.typesafe.akka"  %% "akka-testkit"                         % akkaVersion % "test",
-    "org.scalatest"      %% "scalatest"                            % scalaTestVersion,
-    "org.scalamock"      %% "scalamock-scalatest-support"          % scalaMockVersion,
+    "ru.yandex.qatools.embed" % "postgresql-embedded"              % "1.15" % "test",
+    "org.scalatest"      %% "scalatest"                            % scalaTestVersion % "test",
+    "org.scalamock"      %% "scalamock-scalatest-support"          % scalaMockVersion % "test",
     "com.typesafe.akka"  %% "akka-http-testkit-experimental"       % akkaStreamVersion
   )
 }

@@ -19,6 +19,20 @@ trait UsersRoute extends JsonMappings with SecurityDirectives {
         complete(findAll.map(_.toJson))
       }
     } ~
+    pathPrefix("me") {
+      pathEndOrSingleSlash {
+        authenticate { loggedUser =>
+          get {
+            complete(loggedUser)
+          } ~
+            post {
+              entity(as[UserEntityUpdate]) { userUpdate =>
+                complete(update(loggedUser.id.get, userUpdate).map(_.toJson))
+              }
+            }
+        }
+      }
+    } ~
     pathPrefix(IntNumber) { id =>
       pathEndOrSingleSlash {
         authenticate { loggedUser =>

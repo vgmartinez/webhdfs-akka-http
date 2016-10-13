@@ -1,5 +1,6 @@
+package routes
+
 import akka.http.scaladsl.server.Directives._
-import routes.{ApiErrorHandler, AuthRoute, HdfsRoute, UsersRoute}
 import utils.CorsSupport
 
 trait Routes extends ApiErrorHandler with AuthRoute with UsersRoute with HdfsRoute with CorsSupport {

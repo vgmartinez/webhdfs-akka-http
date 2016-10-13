@@ -3,7 +3,8 @@ import akka.event.{Logging, LoggingAdapter}
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
 import akka.stream.ActorMaterializer
-import utils.{MigrationConfig, Config}
+import routes.Routes
+import utils.{Config, MigrationConfig}
 
 import scala.concurrent.ExecutionContext
 
